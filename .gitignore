@@ -1,0 +1,7 @@
+# Cargo
+/target
+Cargo.lock
+
+# Jetbrains
+.idea
+*/*.txt
