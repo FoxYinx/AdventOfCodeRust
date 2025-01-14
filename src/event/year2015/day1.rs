@@ -39,5 +39,5 @@ pub fn part2(input: &str) {
 }
 
 fn read_file() -> io::Result<String> {
-    fs::read_to_string("ressources/year2015/day1/part1.txt")
+    fs::read_to_string("ressources/year2015/day1.txt")
 }
