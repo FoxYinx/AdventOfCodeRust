@@ -11,7 +11,7 @@ pub fn day3() {
 #[derive(Eq, PartialEq, Hash, Copy, Clone)]
 struct Pos(i32, i32);
 
-pub fn part1(input: &str) {
+fn part1(input: &str) {
     let mut current_pos = Pos(0, 0);
     let mut set: HashSet<Pos> = HashSet::from([current_pos]);
     for c in input.chars() {
@@ -27,7 +27,7 @@ pub fn part1(input: &str) {
     println!("Part 1: {}", set.len());
 }
 
-pub fn part2(input: &str) {
+fn part2(input: &str) {
     let mut santa = Pos(0, 0);
     let mut robot = Pos(0, 0);
     let mut set: HashSet<Pos> = HashSet::from([santa]);
@@ -52,6 +52,6 @@ pub fn part2(input: &str) {
     println!("Part 2: {}", set.len());
 }
 
-pub fn read_file() -> io::Result<String> {
+fn read_file() -> io::Result<String> {
     fs::read_to_string("ressources/year2015/day3.txt")
 }
