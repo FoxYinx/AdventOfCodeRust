@@ -6,28 +6,39 @@ pub fn day5() {
     println!("Day 5");
     let input = read_file().expect("Unable to read file!");
     part1(&input);
+    part2(&input);
 }
 
 fn part1(input: &Vec<String>) {
     let mut nice_string = 0;
     for line in input {
-        if is_string_nice(line) {
+        if is_string_nice_1(line) {
             nice_string += 1;
         }
     }
     println!("Part 1: {}", nice_string)
 }
 
-fn is_string_nice(line: &str) -> bool {
+fn part2(input: &Vec<String>) {
+    let mut nice_string = 0;
+    for line in input {
+        if is_string_nice_2(line) {
+            nice_string += 1;
+        }
+    }
+    println!("Part 2: {}", nice_string)
+}
+
+fn is_string_nice_1(line: &str) -> bool {
     let mut vowels = 0;
     let mut repeat = false;
     let mut bad_strings = true;
     let chars: Vec<char> = line.chars().collect();
-    
+
     if chars[0] == 'a' || chars[0] == 'e' || chars[0] == 'i' || chars[0] == 'o' || chars[0] == 'u' {
         vowels += 1;
     }
-    
+
     for window in chars.windows(2) {
         match window {
             ['a', 'b'] | ['c', 'd'] | ['p', 'q'] | ['x', 'y'] => bad_strings = false,
@@ -40,8 +51,26 @@ fn is_string_nice(line: &str) -> bool {
             repeat = true
         }
     }
-    
+
     vowels >= 3 && repeat && bad_strings
+}
+
+fn is_string_nice_2(line: &str) -> bool {
+    let mut pair = false;
+    let mut repeat = false;
+    let chars: Vec<char> = line.chars().collect();
+
+    for window in chars.windows(3) {
+        if window[0] == window[2] {
+            repeat = true;
+        }
+    }
+
+    for i in 0..chars.len() - 1 {
+        pair = pair || line[..i].contains(&line[i..i+2]) || line[i+2..].contains(&line[i..i+2]);
+    }
+
+    pair && repeat
 }
 
 fn read_file() -> io::Result<Vec<String>> {
