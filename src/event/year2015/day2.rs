@@ -3,7 +3,6 @@ use std::cmp::{max, min};
 use regex::Regex;
 
 pub fn day2() {
-    println!("Day 2");
     let input = read_file().expect("Unable to read file!");
     let regex = Regex::new(r"(\d+)x(\d+)x(\d+)").unwrap();
     let values: Vec<(i32, i32, i32)> = regex.captures_iter(&input).map(|caps| {
@@ -20,7 +19,7 @@ fn part1(values: &Vec<(i32, i32, i32)>) {
         total += 2 * (v1 * v2 + v1 * v3 + v2 * v3);
         total += min(v1 * v2, min(v1 * v3, v2 * v3));
     }
-    println!("Part 1: {}", total);
+    println!("Day 2 - Part 1: {}", total);
 }
 
 fn part2(values: &Vec<(i32, i32, i32)>) {
@@ -29,7 +28,7 @@ fn part2(values: &Vec<(i32, i32, i32)>) {
         total += v1 * v2 * v3;
         total += 2 * (v1 + v2 + v3 - max(v1, max(v2, v3)));
     }
-    println!("Part 2: {}", total);
+    println!("Day 2 - Part 2: {}", total);
 }
 
 fn read_file() -> io::Result<String> {

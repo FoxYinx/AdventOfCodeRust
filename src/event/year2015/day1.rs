@@ -1,7 +1,6 @@
 use std::{fs, io};
 
 pub fn day1() {
-    println!("Day 1");
     let input = read_file().expect("Unable to read file!");
     part1(&input);
     part2(&input);
@@ -18,7 +17,7 @@ fn part1(input: &str) {
             }
         }
     }
-    println!("Part 1: {}", floor);
+    println!("Day 1 - Part 1: {}", floor);
 }
 
 fn part2(input: &str) {
@@ -32,7 +31,7 @@ fn part2(input: &str) {
             }
         }
         if floor == -1 {
-            println!("Part 2: {}", i + 1);
+            println!("Day 1 - Part 2: {}", i + 1);
             break;
         }
     }

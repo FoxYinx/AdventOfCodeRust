@@ -3,7 +3,6 @@ use std::io::{BufRead, BufReader};
 use std::io;
 
 pub fn day5() {
-    println!("Day 5");
     let input = read_file().expect("Unable to read file!");
     part1(&input);
     part2(&input);
@@ -16,7 +15,7 @@ fn part1(input: &Vec<String>) {
             nice_string += 1;
         }
     }
-    println!("Part 1: {}", nice_string)
+    println!("Day 5 - Part 1: {}", nice_string)
 }
 
 fn part2(input: &Vec<String>) {
@@ -26,7 +25,7 @@ fn part2(input: &Vec<String>) {
             nice_string += 1;
         }
     }
-    println!("Part 2: {}", nice_string)
+    println!("Day 5 - Part 2: {}", nice_string)
 }
 
 fn is_string_nice_1(line: &str) -> bool {

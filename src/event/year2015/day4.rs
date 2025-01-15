@@ -2,10 +2,9 @@ use std::{fs, io};
 use md5::{Md5, Digest};
 
 pub fn day4() {
-    println!("Day 4");
     let input = read_file().expect("Unable to read file!");
-    println!("Part 1: {}", answer(&input, 5));
-    println!("Part 2: {}", answer(&input, 6));
+    println!("Day 4 - Part 1: {}", answer(&input, 5));
+    println!("Day 4 - Part 2: {}", answer(&input, 6));
 }
 
 fn answer(input: &str, nb: usize) -> i32 {

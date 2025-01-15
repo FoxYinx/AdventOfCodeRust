@@ -2,7 +2,6 @@ use std::{fs, io};
 use std::collections::HashSet;
 
 pub fn day3() {
-    println!("Day 3");
     let input = read_file().expect("Unable to read file!");
     part1(&input);
     part2(&input);
@@ -24,7 +23,7 @@ fn part1(input: &str) {
         }
         set.insert(current_pos);
     }
-    println!("Part 1: {}", set.len());
+    println!("Day 3 - Part 1: {}", set.len());
 }
 
 fn part2(input: &str) {
@@ -49,7 +48,7 @@ fn part2(input: &str) {
         set.insert(santa);
         set.insert(robot);
     }
-    println!("Part 2: {}", set.len());
+    println!("Day 3 - Part 2: {}", set.len());
 }
 
 fn read_file() -> io::Result<String> {
