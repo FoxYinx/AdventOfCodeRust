@@ -1,5 +1,6 @@
 use regex::Regex;
 use std::{fs, io};
+use std::cmp::max;
 
 pub fn part1() -> i32 {
     let values = get_values();
@@ -33,6 +34,41 @@ pub fn part1() -> i32 {
     }
 
     lamps.iter().fold(0, |acc, bool| acc + bool.iter().fold(0, |acc, bool| if *bool {acc + 1} else {acc}))
+}
+
+pub fn part2() -> i32 {
+    let values = get_values();
+    
+    let mut lamps: [[i32; 1000]; 1000] = [[0; 1000]; 1000];
+    for value in values {
+        match value.0 {
+            Function::Toggle => {
+                for column in lamps.iter_mut().take(value.3).skip(value.1 - 1) {
+                    for lamp in column.iter_mut().take(value.4).skip(value.2 - 1) {
+                        *lamp += 2;
+                    }
+                }
+            },
+            Function::On => {
+                for column in lamps.iter_mut().take(value.3).skip(value.1 - 1) {
+                    for lamp in column.iter_mut().take(value.4).skip(value.2 - 1) {
+                        *lamp += 1;
+                    }
+                }
+            },
+            Function::Off => {
+                for column in lamps.iter_mut().take(value.3).skip(value.1 - 1) {
+                    for lamp in column.iter_mut().take(value.4).skip(value.2 - 1) {
+                        *lamp = max(0, *lamp - 1);
+                    }
+                }
+            },
+            Function::Error => eprintln!("Error while parsing input")
+        }
+    }
+
+    lamps.iter().fold(0, |acc, val| acc + val.iter().sum::<i32>())
+
 }
 
 fn get_values() -> Vec<(Function, usize, usize, usize, usize)> {
