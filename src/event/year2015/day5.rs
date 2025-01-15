@@ -1,0 +1,49 @@
+use std::fs::File;
+use std::io::{BufRead, BufReader};
+use std::io;
+
+pub fn day5() {
+    println!("Day 5");
+    let input = read_file().expect("Unable to read file!");
+    part1(&input);
+}
+
+fn part1(input: &Vec<String>) {
+    let mut nice_string = 0;
+    for line in input {
+        if is_string_nice(line) {
+            nice_string += 1;
+        }
+    }
+    println!("Part 1: {}", nice_string)
+}
+
+fn is_string_nice(line: &str) -> bool {
+    let mut vowels = 0;
+    let mut repeat = false;
+    let mut bad_strings = true;
+    let chars: Vec<char> = line.chars().collect();
+    
+    if chars[0] == 'a' || chars[0] == 'e' || chars[0] == 'i' || chars[0] == 'o' || chars[0] == 'u' {
+        vowels += 1;
+    }
+    
+    for window in chars.windows(2) {
+        match window {
+            ['a', 'b'] | ['c', 'd'] | ['p', 'q'] | ['x', 'y'] => bad_strings = false,
+            _ => {}
+        }
+        if let [_, 'a' | 'e' | 'i' | 'o' | 'u'] = window {
+            vowels += 1;
+        }
+        if window[0] == window[1] {
+            repeat = true
+        }
+    }
+    
+    vowels >= 3 && repeat && bad_strings
+}
+
+fn read_file() -> io::Result<Vec<String>> {
+    BufReader::new(File::open("ressources/year2015/day5.txt")?).lines().collect()
+}
