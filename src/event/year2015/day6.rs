@@ -8,23 +8,23 @@ pub fn part1() -> i32 {
     for value in values {
         match value.0 {
             Function::Toggle => {
-                for x in value.1 - 1..value.3 {
-                    for y in value.2 - 1..value.4 {
-                        lamps[x][y] = !lamps[x][y];
+                for column in lamps.iter_mut().take(value.3).skip(value.1 - 1) {
+                    for lamp in column.iter_mut().take(value.4).skip(value.2 - 1) {
+                        *lamp = !*lamp;
                     }
                 }
             },
             Function::On => {
-                for x in value.1 - 1..value.3 {
-                    for y in value.2 - 1..value.4 {
-                        lamps[x][y] = true;
+                for column in lamps.iter_mut().take(value.3).skip(value.1 - 1) {
+                    for lamp in column.iter_mut().take(value.4).skip(value.2 - 1) {
+                        *lamp = true;
                     }
                 }
             },
             Function::Off => {
-                for x in value.1 - 1..value.3{
-                    for y in value.2 - 1..value.4 {
-                        lamps[x][y] = false;
+                for column in lamps.iter_mut().take(value.3).skip(value.1 - 1) {
+                    for lamp in column.iter_mut().take(value.4).skip(value.2 - 1) {
+                        *lamp = false;
                     }
                 }
             },
