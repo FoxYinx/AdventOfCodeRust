@@ -7,7 +7,7 @@ pub fn day1() {
     part2(&input);
 }
 
-pub fn part1(input: &str) {
+fn part1(input: &str) {
     let mut floor = 0;
     for c in input.chars() {
         match c {
@@ -21,7 +21,7 @@ pub fn part1(input: &str) {
     println!("Part 1: {}", floor);
 }
 
-pub fn part2(input: &str) {
+fn part2(input: &str) {
     let mut floor = 0;
     for (i, c) in input.chars().enumerate() {
         match c { 
