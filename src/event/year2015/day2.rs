@@ -14,7 +14,7 @@ pub fn day2() {
     part2(&values);
 }
 
-pub fn part1(values: &Vec<(i32, i32, i32)>) {
+fn part1(values: &Vec<(i32, i32, i32)>) {
     let mut total = 0;
     for (v1, v2, v3) in values {
         total += 2 * (v1 * v2 + v1 * v3 + v2 * v3);
@@ -23,7 +23,7 @@ pub fn part1(values: &Vec<(i32, i32, i32)>) {
     println!("Part 1: {}", total);
 }
 
-pub fn part2(values: &Vec<(i32, i32, i32)>) {
+fn part2(values: &Vec<(i32, i32, i32)>) {
     let mut total = 0;
     for (v1, v2, v3) in values {
         total += v1 * v2 * v3;
@@ -32,6 +32,6 @@ pub fn part2(values: &Vec<(i32, i32, i32)>) {
     println!("Part 2: {}", total);
 }
 
-pub fn read_file() -> io::Result<String> {
+fn read_file() -> io::Result<String> {
     fs::read_to_string("ressources/year2015/day2.txt")
 }
