@@ -72,7 +72,7 @@ fn is_string_nice_2(line: &str) -> bool {
             pair = true;
         }
     }
-
+    
     pair && repeat
 }
 
