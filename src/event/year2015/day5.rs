@@ -66,8 +66,11 @@ fn is_string_nice_2(line: &str) -> bool {
         }
     }
 
-    for i in 0..chars.len() - 1 {
-        pair = pair || line[..i].contains(&line[i..i+2]) || line[i+2..].contains(&line[i..i+2]);
+    for window in chars.windows(2) {
+        let pair_str: String = window.iter().collect();
+        if line.matches(&pair_str).count() > 1 {
+            pair = true;
+        }
     }
 
     pair && repeat
