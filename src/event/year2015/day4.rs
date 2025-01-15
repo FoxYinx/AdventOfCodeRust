@@ -1,13 +1,16 @@
 use std::{fs, io};
 use md5::{Md5, Digest};
 
-pub fn day4() {
-    let input = read_file().expect("Unable to read file!");
-    println!("Day 4 - Part 1: {}", answer(&input, 5));
-    println!("Day 4 - Part 2: {}", answer(&input, 6));
+pub fn part1() -> i32 {
+    answer(5)
 }
 
-fn answer(input: &str, nb: usize) -> i32 {
+pub fn part2() -> i32 {
+    answer(6)
+}
+
+fn answer(nb: usize) -> i32 {
+    let input = read_file().expect("Unable to read file!");
     let mut i = 0;
     loop {
         let hash = Md5::digest(input.to_owned() + i.to_string().as_str());

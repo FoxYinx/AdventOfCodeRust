@@ -1,16 +1,11 @@
 use std::{fs, io};
 use std::collections::HashSet;
 
-pub fn day3() {
-    let input = read_file().expect("Unable to read file!");
-    part1(&input);
-    part2(&input);
-}
-
 #[derive(Eq, PartialEq, Hash, Copy, Clone)]
 struct Pos(i32, i32);
 
-fn part1(input: &str) {
+pub fn part1() -> usize {
+    let input = read_file().expect("Unable to read file!");
     let mut current_pos = Pos(0, 0);
     let mut set: HashSet<Pos> = HashSet::from([current_pos]);
     for c in input.chars() {
@@ -23,10 +18,11 @@ fn part1(input: &str) {
         }
         set.insert(current_pos);
     }
-    println!("Day 3 - Part 1: {}", set.len());
+    set.len()
 }
 
-fn part2(input: &str) {
+pub fn part2() -> usize {
+    let input = read_file().expect("Unable to read file!");
     let mut santa = Pos(0, 0);
     let mut robot = Pos(0, 0);
     let mut set: HashSet<Pos> = HashSet::from([santa]);
@@ -48,7 +44,7 @@ fn part2(input: &str) {
         set.insert(santa);
         set.insert(robot);
     }
-    println!("Day 3 - Part 2: {}", set.len());
+    set.len()
 }
 
 fn read_file() -> io::Result<String> {

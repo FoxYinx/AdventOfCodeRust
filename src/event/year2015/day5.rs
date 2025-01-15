@@ -2,30 +2,26 @@ use std::fs::File;
 use std::io::{BufRead, BufReader};
 use std::io;
 
-pub fn day5() {
-    let input = read_file().expect("Unable to read file!");
-    part1(&input);
-    part2(&input);
-}
-
-fn part1(input: &Vec<String>) {
+pub fn part1() -> i32 {
+    let input = &read_file().expect("Unable to read file!");
     let mut nice_string = 0;
     for line in input {
         if is_string_nice_1(line) {
             nice_string += 1;
         }
     }
-    println!("Day 5 - Part 1: {}", nice_string)
+    nice_string
 }
 
-fn part2(input: &Vec<String>) {
+pub fn part2() -> i32 {
+    let input = &read_file().expect("Unable to read file!");
     let mut nice_string = 0;
     for line in input {
         if is_string_nice_2(line) {
             nice_string += 1;
         }
     }
-    println!("Day 5 - Part 2: {}", nice_string)
+    nice_string
 }
 
 fn is_string_nice_1(line: &str) -> bool {
