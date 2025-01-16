@@ -5,7 +5,42 @@ use std::io::{BufRead, BufReader};
 use crate::event::year2015::day7::Opcode::{And, Lshift, Not, Or, Rshift, Value};
 
 pub fn part1() -> u16 {
-    let lines = read_lines().expect("Unable to read file!");
+    let lines = read_lines("day7.txt").expect("Unable to read file!");
+    execute(lines)
+}
+
+pub fn part2() -> u16 {
+    let lines = read_lines("day7-part2.txt").expect("Unable to read file!");
+    execute(lines)
+}
+
+fn read_lines(file: &str) -> io::Result<Vec<String>> {
+    BufReader::new(File::open("ressources/year2015/".to_owned() + file)?).lines().collect()
+}
+
+fn line_to_opcode(lines :&Vec<String>) -> Vec<(Opcode, &str)>{
+    let mut opcodes: Vec<(Opcode, &str)> = Vec::new();
+    for line in lines {
+        if let Some((left, right)) = line.split_once(" -> ") {
+            if let Some((part1, part2)) = left.split_once(" LSHIFT ") {
+                opcodes.push((Lshift(part1, part2.parse::<u16>().unwrap()), right));
+            } else if let Some((part1, part2)) = left.split_once(" RSHIFT ") {
+                opcodes.push((Rshift(part1, part2.parse::<u16>().unwrap()), right));
+            } else if let Some((part1, part2)) = left.split_once(" OR ") {
+                opcodes.push((Or(part1, part2), right));
+            } else if let Some((part1, part2)) = left.split_once(" AND ") {
+                opcodes.push((And(part1, part2), right));
+            } else if let Some((_part1, part2)) = left.split_once("NOT ") {
+                opcodes.push((Not(part2), right));
+            } else {
+                opcodes.push((Value(left), right));
+            }
+        }
+    }
+    opcodes
+}
+
+fn execute (lines: Vec<String>) -> u16 {
     let opcodes = line_to_opcode(&lines);
     let mut map: HashMap<&str, u16> = HashMap::new();
 
@@ -53,32 +88,6 @@ pub fn part1() -> u16 {
             return *v
         }
     }
-}
-
-fn read_lines() -> io::Result<Vec<String>> {
-    BufReader::new(File::open("ressources/year2015/day7.txt")?).lines().collect()
-}
-
-fn line_to_opcode(lines :&Vec<String>) -> Vec<(Opcode, &str)>{
-    let mut opcodes: Vec<(Opcode, &str)> = Vec::new();
-    for line in lines {
-        if let Some((left, right)) = line.split_once(" -> ") {
-            if let Some((part1, part2)) = left.split_once(" LSHIFT ") {
-                opcodes.push((Lshift(part1, part2.parse::<u16>().unwrap()), right));
-            } else if let Some((part1, part2)) = left.split_once(" RSHIFT ") {
-                opcodes.push((Rshift(part1, part2.parse::<u16>().unwrap()), right));
-            } else if let Some((part1, part2)) = left.split_once(" OR ") {
-                opcodes.push((Or(part1, part2), right));
-            } else if let Some((part1, part2)) = left.split_once(" AND ") {
-                opcodes.push((And(part1, part2), right));
-            } else if let Some((_part1, part2)) = left.split_once("NOT ") {
-                opcodes.push((Not(part2), right));
-            } else {
-                opcodes.push((Value(left), right));
-            }
-        }
-    }
-    opcodes
 }
 
 enum Opcode<'a> {
