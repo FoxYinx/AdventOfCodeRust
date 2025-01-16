@@ -21,6 +21,7 @@ fn main() {
     time(6, 2, event::year2015::day6::part2);
     time(7, 1, event::year2015::day7::part1);
     time(7, 2, event::year2015::day7::part2);
+    time(8, 1, event::year2015::day8::part1);
     
     let end = Instant::now();
     println!("Total Time: {:?}", end.duration_since(start));
