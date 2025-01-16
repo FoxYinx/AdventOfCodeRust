@@ -15,7 +15,7 @@ pub fn part1() -> i32 {
     floor
 }
 
-pub fn part2() -> i32 {
+pub fn part2() -> usize {
     let input = read_file().expect("Unable to read file!");
     let mut floor = 0;
     for (i, c) in input.chars().enumerate() {
@@ -27,10 +27,10 @@ pub fn part2() -> i32 {
             }
         }
         if floor == -1 {
-            return (i + 1) as i32;
+            return i + 1;
         }
     }
-    -1
+    0
 }
 
 fn read_file() -> io::Result<String> {

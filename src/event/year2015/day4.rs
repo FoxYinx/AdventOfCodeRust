@@ -13,7 +13,7 @@ fn answer(nb: usize) -> i32 {
     let input = read_file().expect("Unable to read file!");
     let mut i = 0;
     loop {
-        let hash = Md5::digest(input.to_owned() + i.to_string().as_str());
+        let hash = Md5::digest(input.clone() + i.to_string().as_str());
         let hex_hash = base16ct::lower::encode_string(&hash);
         if hex_hash[..nb] == "0".repeat(nb) {
             break;

@@ -43,7 +43,7 @@ fn is_string_nice_1(line: &str) -> bool {
             vowels += 1;
         }
         if window[0] == window[1] {
-            repeat = true
+            repeat = true;
         }
     }
 

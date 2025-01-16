@@ -21,7 +21,7 @@ fn main() {
     time(6, 2, event::year2015::day6::part2);
     
     let end = Instant::now();
-    println!("Total Time: {:?}", end.duration_since(start))
+    println!("Total Time: {:?}", end.duration_since(start));
 }
 
 fn time<T, F: FnOnce() -> T>(day: u8, part: u8, f: F) where T: Display {
@@ -35,5 +35,5 @@ fn time<T, F: FnOnce() -> T>(day: u8, part: u8, f: F) where T: Display {
         part,
         result,
         end.duration_since(start)
-    )
+    );
 }

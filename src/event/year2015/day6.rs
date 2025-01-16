@@ -5,7 +5,7 @@ use std::cmp::max;
 pub fn part1() -> i32 {
     let values = get_values();
     
-    let mut lamps: [[bool; 1000]; 1000] = [[false; 1000]; 1000];
+    let mut lamps: Box<[[bool; 1000]]> = vec![[false; 1000]; 1000].into_boxed_slice();
     for value in values {
         match value.0 {
             Function::Toggle => {
@@ -39,7 +39,7 @@ pub fn part1() -> i32 {
 pub fn part2() -> i32 {
     let values = get_values();
     
-    let mut lamps: [[i32; 1000]; 1000] = [[0; 1000]; 1000];
+    let mut lamps: Box<[[i32; 1000]]> = vec![[0; 1000]; 1000].into_boxed_slice();
     for value in values {
         match value.0 {
             Function::Toggle => {
