@@ -5,22 +5,18 @@ use regex::Regex;
 pub fn part1() -> i32 {
     let values = get_values();
     
-    let mut total = 0;
-    for (v1, v2, v3) in values {
-        total += 2 * (v1 * v2 + v1 * v3 + v2 * v3);
-        total += min(v1 * v2, min(v1 * v3, v2 * v3));
-    }
+    let total= values.iter().map(|(v1, v2, v3)| {
+        2 * (v1 * v2 + v1 * v3 + v2 * v3) +  min(v1 * v2, min(v1 * v3, v2 * v3))
+    }).sum();
     total
 }
 
 pub fn part2() -> i32 {
     let values = get_values();
     
-    let mut total = 0;
-    for (v1, v2, v3) in values {
-        total += v1 * v2 * v3;
-        total += 2 * (v1 + v2 + v3 - max(v1, max(v2, v3)));
-    }
+    let total= values.iter().map(|(v1, v2, v3)| {
+        v1 * v2 * v3 + 2 * (v1 + v2 + v3 - max(v1, max(v2, v3)))
+    }).sum();
     total
 }
 
