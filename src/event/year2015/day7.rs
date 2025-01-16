@@ -6,12 +6,12 @@ use crate::event::year2015::day7::Opcode::{And, Lshift, Not, Or, Rshift, Value};
 
 pub fn part1() -> u16 {
     let lines = read_lines("day7.txt").expect("Unable to read file!");
-    execute(lines)
+    execute(&lines)
 }
 
 pub fn part2() -> u16 {
     let lines = read_lines("day7-part2.txt").expect("Unable to read file!");
-    execute(lines)
+    execute(&lines)
 }
 
 fn read_lines(file: &str) -> io::Result<Vec<String>> {
@@ -40,8 +40,8 @@ fn line_to_opcode(lines :&Vec<String>) -> Vec<(Opcode, &str)>{
     opcodes
 }
 
-fn execute (lines: Vec<String>) -> u16 {
-    let opcodes = line_to_opcode(&lines);
+fn execute (lines: &Vec<String>) -> u16 {
+    let opcodes = line_to_opcode(lines);
     let mut map: HashMap<&str, u16> = HashMap::new();
 
     loop {
