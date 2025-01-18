@@ -5,27 +5,17 @@ use std::{fs, io};
 
 pub fn part1() -> i32 {
     let (map, people) = process_graph();
-    let mut highest_value = i32::MIN;
-    
-    for perm in people.iter().permutations(people.len()) {
-        let mut temp_value = 0;
-        for i in 0..perm.len() {
-            temp_value += map.get(&(perm[i].clone(), perm[(i + 1) % perm.len()].clone())).unwrap();
-            temp_value += map.get(&(perm[i].clone(), perm[(i + perm.len() - 1) % perm.len()].clone())).unwrap();
-        }
-        if temp_value > highest_value {
-            highest_value = temp_value;
-        }
-    }
-
-    highest_value
+    execute(&map, &people)
 }
 
 pub fn part2() -> i32 {
     let (mut map, mut people) = process_graph();
-    let mut highest_value = i32::MIN;
     add_myself(&mut map, &mut people);
+    execute(&map, &people)
+}
 
+fn execute(map: &HashMap<(String, String), i32>, people: &[String]) -> i32 {
+    let mut highest_value = i32::MIN;
     for perm in people.iter().permutations(people.len()) {
         let mut temp_value = 0;
         for i in 0..perm.len() {
