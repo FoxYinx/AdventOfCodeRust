@@ -21,7 +21,7 @@ fn distance(speed: u32, time: u32, pause: u32, after: u32) -> u32 {
     let quotient = after / (time + pause);
     let remainder = after % (time + pause);
     
-    speed * time * quotient + speed * min(time, remainder)
+    speed * (time * quotient + min(time, remainder))
 }
 
 fn read_lines() -> io::Result<String> {
