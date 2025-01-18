@@ -1,5 +1,5 @@
 use std::{fs, io};
-use std::cmp::min;
+use std::cmp::{min, Ordering};
 use regex::Regex;
 
 pub fn part1() -> u32 {
@@ -31,12 +31,16 @@ pub fn part2() -> u32 {
         let mut pointers: Vec<usize> = vec![];
         for reindeer in reindeers.iter().enumerate() {
             let distance = distance(reindeer.1.0, reindeer.1.1, reindeer.1.2, i);
-            if distance > furthest {
-                furthest = distance;
-                pointers.clear();
-                pointers.push(reindeer.0);
-            } else if distance == furthest {
-                pointers.push(reindeer.0);
+            match distance.cmp(&furthest) {
+                Ordering::Greater => {
+                    furthest = distance;
+                    pointers.clear();
+                    pointers.push(reindeer.0);
+                }
+                Ordering::Equal => {
+                    pointers.push(reindeer.0);
+                }
+                Ordering::Less => {}
             }
         }
         for pointer in &pointers {
