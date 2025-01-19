@@ -12,6 +12,17 @@ pub fn part1() -> usize {
     anwser
 }
 
+pub fn part2() -> usize {
+    let values = read_lines().expect("Unable to read files");
+    for value in 1..=values.len() {
+        let answer= values.iter().combinations(value).filter(|vec| vec.iter().copied().sum::<i32>() == 150).count();
+        if answer != 0 {
+            return answer;
+        }
+    }
+    0
+}
+
 fn read_lines() -> io::Result<Vec<i32>> {
     BufReader::new(File::open("ressources/year2015/day17.txt")?)
         .lines()
