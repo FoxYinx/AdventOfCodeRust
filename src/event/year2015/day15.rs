@@ -10,7 +10,7 @@ pub fn part1() -> i32 {
     }).collect();
 
     let mut best_cookie = i32::MIN;
-    let combinations = find_combinations(100, 4);
+    let combinations = find_combinations();
     for combination in combinations {
         let mut capacity = 0;
         let mut durability = 0;
@@ -47,7 +47,7 @@ pub fn part2() -> i32 {
     }).collect();
 
     let mut best_cookie = i32::MIN;
-    let combinations = find_combinations(100, 4);
+    let combinations = find_combinations();
     for combination in combinations {
         let mut capacity = 0;
         let mut durability = 0;
@@ -81,13 +81,13 @@ pub fn part2() -> i32 {
     best_cookie
 }
 
-fn find_combinations(total: i32, parts: usize) -> Vec<[i32; 4]> {
+fn find_combinations() -> Vec<[i32; 4]> {
     let mut combinations = Vec::new();
 
-    for a in 1..=total - parts as i32 + 1 {
-        for b in 1..=total - a - parts as i32 + 2 {
-            for c in 1..=total - a - b - parts as i32 + 3 {
-                let d = total - a - b - c;
+    for a in 1..=97 {
+        for b in 1..=98 - a {
+            for c in 1..=99 - a - b {
+                let d = 100 - a - b - c;
                 if d >= 1 {
                     combinations.push([a, b, c, d]);
                 }
