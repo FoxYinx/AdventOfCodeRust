@@ -2,12 +2,7 @@ use std::{fs, io};
 use regex::Regex;
 
 pub fn part1() -> i32 {
-    let lines = read_lines().expect("Unable to read file!");
-    let regex = Regex::new(r"capacity (-?\d+), durability (-?\d+), flavor (-?\d+), texture (-?\d+), calories (-?\d+)").unwrap();
-    let ingredients: Vec<(i32, i32, i32, i32, i32)> = regex.captures_iter(&lines).map(|cap| {
-        let (_, [v1, v2, v3, v4, v5]) = cap.extract();
-        (v1.parse::<i32>().unwrap(), v2.parse::<i32>().unwrap(), v3.parse::<i32>().unwrap(), v4.parse::<i32>().unwrap(), v5.parse::<i32>().unwrap())
-    }).collect();
+    let ingredients = process_input();
 
     let mut best_cookie = i32::MIN;
     let combinations = find_combinations();
@@ -39,12 +34,7 @@ pub fn part1() -> i32 {
 }
 
 pub fn part2() -> i32 {
-    let lines = read_lines().expect("Unable to read file!");
-    let regex = Regex::new(r"capacity (-?\d+), durability (-?\d+), flavor (-?\d+), texture (-?\d+), calories (-?\d+)").unwrap();
-    let ingredients: Vec<(i32, i32, i32, i32, i32)> = regex.captures_iter(&lines).map(|cap| {
-        let (_, [v1, v2, v3, v4, v5]) = cap.extract();
-        (v1.parse::<i32>().unwrap(), v2.parse::<i32>().unwrap(), v3.parse::<i32>().unwrap(), v4.parse::<i32>().unwrap(), v5.parse::<i32>().unwrap())
-    }).collect();
+    let ingredients = process_input();
 
     let mut best_cookie = i32::MIN;
     let combinations = find_combinations();
@@ -96,6 +86,16 @@ fn find_combinations() -> Vec<[i32; 4]> {
     }
 
     combinations
+}
+
+fn process_input() -> Vec<(i32, i32, i32, i32, i32)> {
+    let lines = read_lines().expect("Unable to read file!");
+    let regex = Regex::new(r"capacity (-?\d+), durability (-?\d+), flavor (-?\d+), texture (-?\d+), calories (-?\d+)").unwrap();
+    let ingredients: Vec<(i32, i32, i32, i32, i32)> = regex.captures_iter(&lines).map(|cap| {
+        let (_, [v1, v2, v3, v4, v5]) = cap.extract();
+        (v1.parse::<i32>().unwrap(), v2.parse::<i32>().unwrap(), v3.parse::<i32>().unwrap(), v4.parse::<i32>().unwrap(), v5.parse::<i32>().unwrap())
+    }).collect();
+    ingredients
 }
 
 fn read_lines() -> io::Result<String> {
