@@ -28,6 +28,18 @@ pub fn part1() -> usize {
     distinct_molecules.len()
 }
 
+pub fn part2() -> usize {
+    let lines = read_lines().expect("Unable to read file!");
+    let regex = Regex::new(r"(\w+) => (\w+)").unwrap();
+    let mut replacements: Vec<(String, String)> = Vec::new();
+    regex.captures_iter(&lines).for_each(|cap| {
+        let key = cap[1].to_string();
+        let value = cap[2].to_string();
+        replacements.push((key, value));
+    });
+    let goal = get_initial_molecule().expect("Unable to get last line!");
+}
+
 fn read_lines() -> io::Result<String> {
     fs::read_to_string("ressources/year2015/day19.txt")
 }
