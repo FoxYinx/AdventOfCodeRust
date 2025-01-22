@@ -1,39 +1,27 @@
-use std::collections::HashMap;
 use std::{fs, io};
 
 pub fn part1() -> i32 {
-    let goal = read_input().expect("Unable to read file!").parse::<i32>().unwrap() / 10;
-    let mut map: HashMap<i32, Vec<i32>> = HashMap::new();
-    for i in 0..goal {
-        let sum: i32 = get_divisors(i, &mut map).iter().sum();
-        if sum == goal {
-            return i;
-        }
-    }
-    0
+    let goal = read_input().expect("Unable to read file!").parse::<i32>().unwrap();
+    find_lowest_house(goal)
 }
 
-fn get_divisors(input: i32, map: &mut HashMap<i32, Vec<i32>>) -> Vec<i32> {
-    if let Some(divisors) = map.get(&input) {
-        return divisors.clone();
-    }
+fn find_lowest_house(goal: i32) -> i32 {
+    let goal = goal / 10;
+    let mut houses = vec![0; goal as usize];
 
-    let mut divisors = Vec::new();
-    for i in (1..=input / 2).rev() {
-        if !divisors.contains(&i) && input % i == 0 {
-            divisors.push(i);
-            let sub_divisors = get_divisors(i, map);
-            for &sub_divisor in &sub_divisors {
-                if !divisors.contains(&sub_divisor) {
-                    divisors.push(sub_divisor);
-                }
-            }
+    for elf in 1..goal {
+        for house in (elf..goal).step_by(elf as usize) {
+            houses[house as usize] += elf * 10;
         }
     }
-    divisors.push(input);
 
-    map.insert(input, divisors.clone());
-    divisors
+    for (i, &presents) in houses.iter().enumerate() {
+        if presents >= goal * 10 {
+            return i as i32;
+        }
+    }
+
+    0
 }
 
 fn read_input() -> io::Result<String> {
