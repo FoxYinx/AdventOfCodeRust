@@ -1,5 +1,5 @@
 use regex::Regex;
-use std::collections::HashSet;
+use std::collections::{HashMap, HashSet};
 use std::fs::File;
 use std::io::{BufRead, BufReader};
 use std::{fs, io};
@@ -38,6 +38,8 @@ pub fn part2() -> usize {
         replacements.push((key, value));
     });
     let goal = get_initial_molecule().expect("Unable to get last line!");
+    
+    0
 }
 
 fn read_lines() -> io::Result<String> {
