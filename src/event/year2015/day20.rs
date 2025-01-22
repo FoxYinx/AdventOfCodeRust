@@ -19,11 +19,18 @@ fn get_divisors(input: i32, map: &mut HashMap<i32, Vec<i32>>) -> Vec<i32> {
     }
 
     let mut divisors = Vec::new();
-    for i in 1..=input {
-        if input % i == 0 {
+    for i in (1..=input / 2).rev() {
+        if !divisors.contains(&i) && input % i == 0 {
             divisors.push(i);
+            let sub_divisors = get_divisors(i, map);
+            for &sub_divisor in &sub_divisors {
+                if !divisors.contains(&sub_divisor) {
+                    divisors.push(sub_divisor);
+                }
+            }
         }
     }
+    divisors.push(input);
 
     map.insert(input, divisors.clone());
     divisors
