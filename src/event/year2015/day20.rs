@@ -1,11 +1,11 @@
 use std::{fs, io};
 
-pub fn part1() -> i32 {
-    let goal = read_input().expect("Unable to read file!").parse::<i32>().unwrap();
+pub fn part1() -> usize {
+    let goal = read_input().expect("Unable to read file!").parse::<u32>().unwrap();
     find_lowest_house(goal)
 }
 
-fn find_lowest_house(goal: i32) -> i32 {
+fn find_lowest_house(goal: u32) -> usize {
     let goal = goal / 10;
     let mut houses = vec![0; goal as usize];
 
@@ -17,7 +17,7 @@ fn find_lowest_house(goal: i32) -> i32 {
 
     for (i, &presents) in houses.iter().enumerate() {
         if presents >= goal * 10 {
-            return i as i32;
+            return i;
         }
     }
 
