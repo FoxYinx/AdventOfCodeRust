@@ -1,4 +1,6 @@
 use std::cmp::max;
+use std::fs::File;
+use std::io::{BufRead, BufReader, self};
 
 type Object = (i16, i16, i16);
 type Shop = Vec<Object>;
@@ -12,15 +14,32 @@ struct Character {
 pub fn part1() -> i16 {
     let (weapons, armors, rings) = get_shop();
     let mut player = build_character(100, 0, 0);
-    let boss = build_character(100, 8, 2);
+    let boss = get_boss_characteristics().expect("Failed to create boss!");
     let mut objects: Vec<Object> = get_all_possibilities(&weapons, &armors, &rings);
     objects.sort_by(|a, b| a.0.partial_cmp(&b.0).unwrap());
     for object in objects {
         player.damage = object.1;
         player.armor_points = object.2;
         if fight(&player, &boss) {
-            println!("player damage: {}", player.damage);
-            println!("player armor: {}", player.armor_points);
+            return object.0;
+        }
+        player.damage = 0;
+        player.armor_points = 0;
+    }
+
+    0
+}
+
+pub fn part2() -> i16 {
+    let (weapons, armors, rings) = get_shop();
+    let mut player = build_character(100, 0, 0);
+    let boss = get_boss_characteristics().expect("Failed to create boss!");
+    let mut objects: Vec<Object> = get_all_possibilities(&weapons, &armors, &rings);
+    objects.sort_by(|a, b| b.0.partial_cmp(&a.0).unwrap());
+    for object in objects {
+        player.damage = object.1;
+        player.armor_points = object.2;
+        if !fight(&player, &boss) {
             return object.0;
         }
         player.damage = 0;
@@ -104,4 +123,29 @@ fn build_character(health_points: i16, damage: i16, armor_points: i16) -> Charac
         damage,
         armor_points
     }
+}
+
+fn get_boss_characteristics() -> io::Result<Character> {
+    let file = File::open("ressources/year2015/day21.txt")?;
+    let reader = BufReader::new(file);
+    let mut health_points = 0;
+    let mut damage = 0;
+    let mut armor_points = 0;
+
+    for line in reader.lines() {
+        let line = line?;
+        if let Some(health) = line.strip_prefix("Hit Points:") {
+            health_points = health.trim().parse().unwrap();
+        } else if let Some(dmg) = line.strip_prefix("Damage:") {
+            damage = dmg.trim().parse().unwrap();
+        } else if let Some(armor) = line.strip_prefix("Armor:") {
+            armor_points = armor.trim().parse().unwrap();
+        }
+    }
+
+    Ok(Character {
+        health_points,
+        damage,
+        armor_points,
+    })
 }
