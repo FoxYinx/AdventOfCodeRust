@@ -3,10 +3,18 @@ use std::io::{BufRead, BufReader};
 use itertools::Itertools;
 
 pub fn part1() -> u64 {
+    execute(3)
+}
+
+pub fn part2() -> u64 {
+    execute(4)
+}
+
+fn execute(parts: usize) -> u64 {
     let values = read_lines();
-    let goal: u64 = values.iter().sum::<u64>() / 3;
+    let goal: u64 = values.iter().sum::<u64>() / parts as u64;
     let mut answer: Vec<&u64> = Vec::new();
-    
+
     let mut iter = 0;
     let mut sum = 0;
     for i in (0..values.len()).rev() {
@@ -19,7 +27,7 @@ pub fn part1() -> u64 {
     }
 
     let mut flag = false;
-    for i in iter..(values.len() - 2) {
+    for i in iter..=(values.len() - parts) {
         for permutation in values.iter().permutations(i) {
             let sum: u64 = permutation.iter().copied().sum();
             if sum == goal {
@@ -32,7 +40,7 @@ pub fn part1() -> u64 {
             break;
         }
     }
-    
+
     answer.iter().copied().product()
 }
 
