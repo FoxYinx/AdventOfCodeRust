@@ -73,7 +73,7 @@ pub fn part2() -> u32 {
 }
 
 fn get_instructions() -> Vec<Instruction> {
-    let file = read_file().expect("Unable to read file");
+    let file = read_file().expect("Unable to read file!");
     let regex = Regex::new(r"(\w{3}) (\w)?,? ?\+?(-?\d+)?").unwrap();
     regex.captures_iter(&file).map(|caps| {
         let f = caps.get(1).unwrap().as_str();
