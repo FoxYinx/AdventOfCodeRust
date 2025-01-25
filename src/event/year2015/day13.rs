@@ -2,6 +2,7 @@ use itertools::Itertools;
 use regex::Regex;
 use std::collections::HashMap;
 use std::{fs, io};
+use rayon::prelude::*;
 
 pub fn part1() -> i32 {
     let (map, people) = process_graph();
@@ -15,19 +16,14 @@ pub fn part2() -> i32 {
 }
 
 fn execute(map: &HashMap<(String, String), i32>, people: &[String]) -> i32 {
-    let mut highest_value = i32::MIN;
-    for perm in people.iter().permutations(people.len()) {
+    people.iter().permutations(people.len()).par_bridge().map(|perm| {
         let mut temp_value = 0;
         for i in 0..perm.len() {
             temp_value += map.get(&(perm[i].clone(), perm[(i + 1) % perm.len()].clone())).unwrap();
             temp_value += map.get(&(perm[i].clone(), perm[(i + perm.len() - 1) % perm.len()].clone())).unwrap();
         }
-        if temp_value > highest_value {
-            highest_value = temp_value;
-        }
-    }
-
-    highest_value
+        temp_value
+    }).max().unwrap_or(i32::MIN)
 }
 
 fn process_graph() -> (HashMap<(String, String), i32>, Vec<String>){
