@@ -6,13 +6,7 @@ use std::{fs, io};
 
 pub fn part1() -> usize {
     let lines = read_lines().expect("Unable to read file!");
-    let regex = Regex::new(r"(\w+) => (\w+)").unwrap();
-    let mut replacements: Vec<(String, String)> = Vec::new();
-    regex.captures_iter(&lines).for_each(|cap| {
-        let key = cap[1].to_string();
-        let value = cap[2].to_string();
-        replacements.push((key, value));
-    });
+    let replacements = parse_replacements(&lines);
     let initial_molecule = get_initial_molecule().expect("Unable to get last line!");
 
     let mut distinct_molecules: HashSet<String> = HashSet::new();
@@ -30,13 +24,7 @@ pub fn part1() -> usize {
 
 pub fn part2() -> usize {
     let lines = read_lines().expect("Unable to read file!");
-    let regex = Regex::new(r"(\w+) => (\w+)").unwrap();
-    let mut replacements: Vec<(String, String)> = Vec::new();
-    regex.captures_iter(&lines).for_each(|cap| {
-        let lhs = cap[1].to_string();
-        let rhs = cap[2].to_string();
-        replacements.push((lhs, rhs));
-    });
+    let replacements = parse_replacements(&lines);
     let mut start = get_initial_molecule().expect("Unable to get last line!");
     let mut count = 0;
     loop {
@@ -54,6 +42,16 @@ pub fn part2() -> usize {
     }
 }
 
+fn parse_replacements(lines: &str) -> Vec<(String, String)> {
+    let regex = Regex::new(r"(\w+) => (\w+)").unwrap();
+    let mut replacements: Vec<(String, String)> = Vec::new();
+    regex.captures_iter(lines).for_each(|cap| {
+        let key = cap[1].to_string();
+        let value = cap[2].to_string();
+        replacements.push((key, value));
+    });
+    replacements
+}
 
 fn read_lines() -> io::Result<String> {
     fs::read_to_string("ressources/year2015/day19.txt")
