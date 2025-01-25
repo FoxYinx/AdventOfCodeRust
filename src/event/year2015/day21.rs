@@ -51,49 +51,38 @@ pub fn part2() -> i16 {
 
 fn get_all_possibilities(weapons: &Shop, armors: &Shop, rings: &Shop) -> Vec<Object> {
     let mut possibilities: Vec<Object> = Vec::new();
+
     for weapon in weapons {
-        let mut initial_object = (0, 0, 0);
-        initial_object.0 += weapon.0;
-        initial_object.1 += weapon.1;
-        initial_object.2 += weapon.2;
+        let initial_object = *weapon;
         possibilities.push(initial_object);
+
         for armor in armors {
-            let mut second_object = initial_object;
-            second_object.0 += armor.0;
-            second_object.1 += armor.1;
-            second_object.2 += armor.2;
-            possibilities.push(second_object);
-            for (i, ring) in rings.iter().enumerate() {
-                let mut third_object = second_object;
-                third_object.0 += ring.0;
-                third_object.1 += ring.1;
-                third_object.2 += ring.2;
-                possibilities.push(third_object);
-                for j in i..rings.len() {
-                    let mut fourth_object = third_object;
-                    fourth_object.0 += rings[j].0;
-                    fourth_object.1 += rings[j].1;
-                    fourth_object.2 += rings[j].2;
-                    possibilities.push(fourth_object);
-                }
-            }
+            let object_with_armor = combine_objects(initial_object, *armor);
+            possibilities.push(object_with_armor);
+
+            add_ring_combinations(&mut possibilities, object_with_armor, rings);
         }
-        for (i, ring) in rings.iter().enumerate() {
-            let mut fifth_object = initial_object;
-            fifth_object.0 += ring.0;
-            fifth_object.1 += ring.1;
-            fifth_object.2 += ring.2;
-            possibilities.push(fifth_object);
-            for j in i..rings.len() {
-                let mut sixth_object = fifth_object;
-                sixth_object.0 += rings[j].0;
-                sixth_object.1 += rings[j].1;
-                sixth_object.2 += rings[j].2;
-                possibilities.push(sixth_object);
-            }
+
+        add_ring_combinations(&mut possibilities, initial_object, rings);
+    }
+
+    possibilities
+}
+
+fn combine_objects(obj1: Object, obj2: Object) -> Object {
+    (obj1.0 + obj2.0, obj1.1 + obj2.1, obj1.2 + obj2.2)
+}
+
+fn add_ring_combinations(possibilities: &mut Vec<Object>, base_object: Object, rings: &Shop) {
+    for (i, ring1) in rings.iter().enumerate() {
+        let object_with_one_ring = combine_objects(base_object, *ring1);
+        possibilities.push(object_with_one_ring);
+
+        for ring2 in rings.iter().skip(i + 1) {
+            let object_with_two_rings = combine_objects(object_with_one_ring, *ring2);
+            possibilities.push(object_with_two_rings);
         }
     }
-    possibilities
 }
 
 fn fight(player: &Character, boss: &Character) -> bool {
