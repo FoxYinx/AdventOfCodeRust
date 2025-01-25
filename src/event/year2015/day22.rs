@@ -80,7 +80,6 @@ fn dijkstra(player: Character, boss: Character, hard: bool) -> i32 {
             
             new_state.player.mana -= spell.mana_cost();
             new_state.mana_spent += spell.mana_cost();
-            
 
             apply_effects(&mut new_state.player, &mut new_state.boss, &mut new_state.effect);
             if new_state.boss.health_points <= 0 {
