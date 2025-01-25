@@ -49,7 +49,7 @@ fn main() {
     time(20, 2, event::year2015::day20::part2);
     time(21, 1, event::year2015::day21::part1);
     time(21, 2, event::year2015::day21::part2);
-    //time(22, 1, event::year2015::day22::part1);
+    time(22, 1, event::year2015::day22::part1);
     time(23, 1, event::year2015::day23::part1);
     time(23, 2, event::year2015::day23::part2);
     time(24, 1, event::year2015::day24::part1);
