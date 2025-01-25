@@ -37,27 +37,21 @@ fn get_lamps() -> [[bool; 100]; 100] {
 
 fn update_lamps(lamps: &[[bool; 100]; 100]) -> [[bool; 100]; 100] {
     let mut new_lamps: [[bool; 100]; 100] = [[false; 100]; 100];
-    for (row_idx, lamp) in lamps.iter().enumerate() {
-        for (col_idx, unique_lamp) in lamp.iter().enumerate() {
-            match unique_lamp { 
-                true => {
-                    if (2..4).contains(&count_on_neighbors(lamps, row_idx, col_idx)) {
-                        new_lamps[row_idx][col_idx] = true;
-                    }
-                },
-                false => {
-                    if count_on_neighbors(lamps, row_idx, col_idx) == 3 {
-                        new_lamps[row_idx][col_idx] = true;
-                    }
-                }
-            }
-        }
-    }
+    update_lamps_common(lamps, &mut new_lamps);
     new_lamps
 }
 
 fn update_lamps_2(lamps: &[[bool; 100]; 100]) -> [[bool; 100]; 100] {
     let mut new_lamps: [[bool; 100]; 100] = [[false; 100]; 100];
+    update_lamps_common(lamps, &mut new_lamps);
+    new_lamps[0][0] = true;
+    new_lamps[0][99] = true;
+    new_lamps[99][0] = true;
+    new_lamps[99][99] = true;
+    new_lamps
+}
+
+fn update_lamps_common(lamps: &[[bool; 100]; 100], new_lamps: &mut [[bool; 100]; 100]) {
     for (row_idx, lamp) in lamps.iter().enumerate() {
         for (col_idx, unique_lamp) in lamp.iter().enumerate() {
             match unique_lamp {
@@ -74,11 +68,6 @@ fn update_lamps_2(lamps: &[[bool; 100]; 100]) -> [[bool; 100]; 100] {
             }
         }
     }
-    new_lamps[0][0] = true;
-    new_lamps[0][99] = true;
-    new_lamps[99][0] = true;
-    new_lamps[99][99] = true;
-    new_lamps
 }
 
 fn count_on_neighbors(lamps: &[[bool; 100]; 100], row: usize, col: usize) -> usize {
@@ -89,9 +78,17 @@ fn count_on_neighbors(lamps: &[[bool; 100]; 100], row: usize, col: usize) -> usi
     ];
 
     directions.iter().filter(|&&(dx, dy)| {
-        let new_row = row as isize + dx;
-        let new_col = col as isize + dy;
-        (0..100).contains(&new_row) && (0..100).contains(&new_col) && lamps[new_row as usize][new_col as usize]
+        if let (Ok(new_row_isize), Ok(new_col_isize)) = (isize::try_from(row), isize::try_from(col)) {
+            let new_row = new_row_isize + dx;
+            let new_col = new_col_isize + dy;
+
+            if (0..100).contains(&new_row) && (0..100).contains(&new_col) {
+                if let (Ok(new_row_usize), Ok(new_col_usize)) = (usize::try_from(new_row), usize::try_from(new_col)) {
+                    return lamps[new_row_usize][new_col_usize];
+                }
+            }
+        }
+        false
     }).count()
 }
 
