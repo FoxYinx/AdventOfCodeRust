@@ -3,9 +3,8 @@ use std::time::Instant;
 
 mod event;
 
-fn main() {
-    let start = Instant::now();
-
+#[allow(dead_code)]
+fn year2015() {
     println!("Year 2015");
     time(1, 1, event::year2015::day1::part1);
     time(1, 2, event::year2015::day1::part2);
@@ -56,6 +55,18 @@ fn main() {
     time(24, 1, event::year2015::day24::part1);
     time(24, 2, event::year2015::day24::part2);
     time(25, 1, event::year2015::day25::part1);
+}
+
+fn year2016() {
+    println!("Year 2016");
+    time(1, 1, event::year2016::day1::part1);
+}
+
+fn main() {
+    let start = Instant::now();
+
+    //year2015();
+    year2016();
     
     let end = Instant::now();
     println!("Total Time: {:?}", end.duration_since(start));

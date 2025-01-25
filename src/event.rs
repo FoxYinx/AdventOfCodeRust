@@ -25,3 +25,7 @@ pub mod year2015 {
     pub mod day24;
     pub mod day25;
 }
+
+pub mod year2016 {
+    pub mod day1;
+}
