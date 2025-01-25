@@ -60,6 +60,7 @@ fn year2015() {
 fn year2016() {
     println!("Year 2016");
     time(1, 1, event::year2016::day1::part1);
+    time(1, 2, event::year2016::day1::part2);
 }
 
 fn main() {
