@@ -40,10 +40,21 @@ pub fn part1() -> i32 {
         mana: 500
     };
     let boss = get_boss_characteristics().expect("Unable to make boss!");
-    dijkstra(player, boss)
+    dijkstra(player, boss, false)
 }
 
-fn dijkstra(player: Character, boss: Character) -> i32 {
+pub fn part2() -> i32 {
+    let player = Character {
+        health_points: 50,
+        damage: 0,
+        armor_points: 0,
+        mana: 500
+    };
+    let boss = get_boss_characteristics().expect("Unable to make boss!");
+    dijkstra(player, boss, true)
+}
+
+fn dijkstra(player: Character, boss: Character, hard: bool) -> i32 {
     let mut heap = BinaryHeap::new();
     heap.push(State {
         player,
@@ -62,8 +73,14 @@ fn dijkstra(player: Character, boss: Character) -> i32 {
                 continue;
             }
             let mut new_state = state.clone();
+            
+            if hard {
+                new_state.player.health_points -= 1;
+            }
+            
             new_state.player.mana -= spell.mana_cost();
             new_state.mana_spent += spell.mana_cost();
+            
 
             apply_effects(&mut new_state.player, &mut new_state.boss, &mut new_state.effect);
             if new_state.boss.health_points <= 0 {
