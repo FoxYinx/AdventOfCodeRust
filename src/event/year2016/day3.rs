@@ -29,7 +29,7 @@ pub fn part2() -> u16 {
             s.parse().unwrap()
         }).collect();
         for i in 0..=2 {
-            if part1[0] + part2[0] > part3[0] && part1[0] + part3[0] > part2[0] && part2[0] + part3[0] > part1[0] {
+            if part1[i] + part2[i] > part3[i] && part1[i] + part3[i] > part2[i] && part2[i] + part3[i] > part1[i] {
                 valid += 1;
             }
         }
