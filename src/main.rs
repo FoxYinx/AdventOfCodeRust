@@ -63,6 +63,7 @@ fn year2016() {
     time(1, 2, event::year2016::day1::part2);
     time(2, 1, event::year2016::day2::part1);
     time(2, 2, event::year2016::day2::part2);
+    time(3, 1, event::year2016::day3::part1);
 }
 
 fn main() {
