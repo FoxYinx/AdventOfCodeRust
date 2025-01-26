@@ -99,5 +99,5 @@ fn process_input() -> Vec<(i32, i32, i32, i32, i32)> {
 }
 
 fn read_lines() -> io::Result<String> {
-    fs::read_to_string("ressources/year2015/day15.txt")
+    fs::read_to_string("../../../resources/year2015/day15.txt")
 }

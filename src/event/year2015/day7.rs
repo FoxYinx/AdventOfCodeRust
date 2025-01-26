@@ -15,7 +15,7 @@ pub fn part2() -> u16 {
 }
 
 fn read_lines(file: &str) -> io::Result<Vec<String>> {
-    BufReader::new(File::open("ressources/year2015/".to_owned() + file)?).lines().collect()
+    BufReader::new(File::open("resources/year2015/".to_owned() + file)?).lines().collect()
 }
 
 fn line_to_opcode(lines :&Vec<String>) -> Vec<(Opcode, &str)>{

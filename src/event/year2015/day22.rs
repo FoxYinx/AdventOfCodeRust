@@ -146,7 +146,7 @@ fn cast_spell(player: &mut Character, effect: &mut [u8; 3], spell: &Spell, boss:
 }
 
 fn get_boss_characteristics() -> io::Result<Character> {
-    let file = File::open("ressources/year2015/day22.txt")?;
+    let file = File::open("../../../resources/year2015/day22.txt")?;
     let reader = BufReader::new(file);
     let mut health_points = 0;
     let mut damage = 0;

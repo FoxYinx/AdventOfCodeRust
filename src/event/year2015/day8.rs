@@ -28,5 +28,5 @@ pub fn part2() -> usize {
 }
 
 fn read_file() -> io::Result<Vec<String>> {
-    BufReader::new(File::open("ressources/year2015/day8.txt")?).lines().collect()
+    BufReader::new(File::open("../../../resources/year2015/day8.txt")?).lines().collect()
 }

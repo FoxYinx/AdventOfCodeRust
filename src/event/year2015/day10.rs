@@ -43,7 +43,7 @@ fn conway(in_seq: &[i8]) -> Vec<i8> {
 }
 
 fn read_file() -> io::Result<Vec<i8>> {
-    let content = fs::read_to_string("ressources/year2015/day10.txt")?;
+    let content = fs::read_to_string("../../../resources/year2015/day10.txt")?;
     let vec: Vec<i8> = content.trim().chars().map(|c| c.to_digit(10).unwrap().try_into().expect("Value out of range for i8")).collect();
     Ok(vec)
 }

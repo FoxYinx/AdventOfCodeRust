@@ -60,5 +60,5 @@ fn distance(speed: u32, time: u32, pause: u32, after: u32) -> u32 {
 }
 
 fn read_lines() -> io::Result<String> {
-    fs::read_to_string("ressources/year2015/day14.txt")
+    fs::read_to_string("../../../resources/year2015/day14.txt")
 }

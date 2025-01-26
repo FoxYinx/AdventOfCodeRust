@@ -30,5 +30,5 @@ fn get_values() -> Vec<(i32, i32, i32)> {
 }
 
 fn read_file() -> io::Result<String> {
-    fs::read_to_string("ressources/year2015/day2.txt")
+    fs::read_to_string("../../../resources/year2015/day2.txt")
 }

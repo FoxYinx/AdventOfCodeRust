@@ -87,7 +87,7 @@ fn get_values() -> Vec<(Function, usize, usize, usize, usize)> {
 }
 
 fn read_file() -> io::Result<String> {
-    fs::read_to_string("ressources/year2015/day6.txt")
+    fs::read_to_string("../../../resources/year2015/day6.txt")
 }
 
 enum Function {

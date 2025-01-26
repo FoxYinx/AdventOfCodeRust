@@ -52,5 +52,5 @@ fn find_lowest_house_2(goal: u32) -> u32 {
 }
 
 fn read_input() -> io::Result<String> {
-    fs::read_to_string("ressources/year2015/day20.txt")
+    fs::read_to_string("../../../resources/year2015/day20.txt")
 }

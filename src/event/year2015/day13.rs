@@ -59,5 +59,5 @@ fn add_myself(map: &mut HashMap<(String, String), i32>, people: &mut Vec<String>
 }
 
 fn read_lines() -> io::Result<String> {
-    fs::read_to_string("ressources/year2015/day13.txt")
+    fs::read_to_string("../../../resources/year2015/day13.txt")
 }

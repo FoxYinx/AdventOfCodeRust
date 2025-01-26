@@ -20,5 +20,5 @@ fn answer(nb: usize) -> i32 {
 }
 
 fn read_file() -> io::Result<String> {
-    fs::read_to_string("ressources/year2015/day4.txt")
+    fs::read_to_string("../../../resources/year2015/day4.txt")
 }

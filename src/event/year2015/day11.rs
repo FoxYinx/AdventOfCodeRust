@@ -63,5 +63,5 @@ fn third_condition(input: &str) -> bool {
 }
 
 fn read_line(file: &str) -> io::Result<String> {
-    fs::read_to_string("ressources/year2015/".to_owned() + file)
+    fs::read_to_string("resources/year2015/".to_owned() + file)
 }

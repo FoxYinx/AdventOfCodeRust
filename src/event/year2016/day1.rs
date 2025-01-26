@@ -2,7 +2,7 @@ use std::collections::HashSet;
 use std::fs;
 
 pub fn part1() -> i16 {
-    let line = fs::read_to_string("ressources/year2016/day1.txt").expect("Unable to read file!");
+    let line = fs::read_to_string("../../../resources/year2016/day1.txt").expect("Unable to read file!");
     let mut current_pos = (0, 0);
     let mut current_direction = 0;
     let directions: Vec<&str> = line.split(',').map(str::trim).collect();
@@ -27,7 +27,7 @@ pub fn part1() -> i16 {
 }
 
 pub fn part2() -> i16 {
-    let line = fs::read_to_string("ressources/year2016/day1.txt").expect("Unable to read file!");
+    let line = fs::read_to_string("../../../resources/year2016/day1.txt").expect("Unable to read file!");
     let mut current_pos = (0, 0);
     let mut current_direction = 0;
     let mut set: HashSet<(i16, i16)> = HashSet::new();

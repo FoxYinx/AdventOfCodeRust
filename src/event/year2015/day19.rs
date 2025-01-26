@@ -54,11 +54,11 @@ fn parse_replacements(lines: &str) -> Vec<(String, String)> {
 }
 
 fn read_lines() -> io::Result<String> {
-    fs::read_to_string("ressources/year2015/day19.txt")
+    fs::read_to_string("../../../resources/year2015/day19.txt")
 }
 
 fn get_initial_molecule() -> io::Result<String> {
-    let file = File::open("ressources/year2015/day19.txt")?;
+    let file = File::open("../../../resources/year2015/day19.txt")?;
     let reader = BufReader::new(file);
     let lines: Vec<String> = reader.lines().collect::<Result<_, _>>()?;
     lines.last().cloned().ok_or_else(|| io::Error::new(io::ErrorKind::UnexpectedEof, "File is empty"))

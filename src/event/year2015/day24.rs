@@ -45,7 +45,7 @@ fn execute(parts: usize) -> u64 {
 }
 
 fn read_lines() -> Vec<u64> {
-    let file = File::open("ressources/year2015/day24.txt").expect("Unable to read file!");
+    let file = File::open("../../../resources/year2015/day24.txt").expect("Unable to read file!");
     let reader = BufReader::new(file);
     reader.lines().map(|l| l.unwrap().parse().unwrap()).collect()
 }

@@ -72,5 +72,5 @@ fn is_string_nice_2(line: &str) -> bool {
 }
 
 fn read_file() -> io::Result<Vec<String>> {
-    BufReader::new(File::open("ressources/year2015/day5.txt")?).lines().collect()
+    BufReader::new(File::open("../../../resources/year2015/day5.txt")?).lines().collect()
 }

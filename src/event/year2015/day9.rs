@@ -67,5 +67,5 @@ fn find_distance(map: &HashMap<(String, String), u32>, locations: &[String], ord
 }
 
 fn read_lines() -> io::Result<Vec<String>> {
-    BufReader::new(File::open("ressources/year2015/day9.txt")?).lines().collect()
+    BufReader::new(File::open("../../../resources/year2015/day9.txt")?).lines().collect()
 }
