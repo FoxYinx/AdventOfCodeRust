@@ -69,5 +69,5 @@ fn process_input() -> (Aunt, HashMap<String, i32>) {
 }
 
 fn read_lines() -> io::Result<String> {
-    fs::read_to_string("../../../resources/year2015/day16.txt")
+    fs::read_to_string("resources/year2015/day16.txt")
 }

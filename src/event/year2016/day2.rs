@@ -61,5 +61,5 @@ pub fn part2() -> String {
 }
 
 fn read_lines() -> io::Result<Vec<String>> {
-    BufReader::new(File::open("../../../resources/year2016/day2.txt")?).lines().collect()
+    BufReader::new(File::open("resources/year2016/day2.txt")?).lines().collect()
 }

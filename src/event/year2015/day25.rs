@@ -20,7 +20,7 @@ fn next_code(code: u64) -> u64 {
 }
 
 fn get_goal() -> (u32, u32) {
-    let line = fs::read_to_string("../../../resources/year2015/day25.txt").expect("Unable to read file!");
+    let line = fs::read_to_string("resources/year2015/day25.txt").expect("Unable to read file!");
     let regex = Regex::new(r"(\d+), column (\d+)").unwrap();
     let caps = regex.captures(&line).unwrap();
     let row = caps.get(1).unwrap().as_str().parse::<u32>().unwrap();

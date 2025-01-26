@@ -93,5 +93,5 @@ fn count_on_neighbors(lamps: &[[bool; 100]; 100], row: usize, col: usize) -> usi
 }
 
 fn read_lines() -> io::Result<Vec<String>> {
-    BufReader::new(File::open("../../../resources/year2015/day18.txt")?).lines().collect()
+    BufReader::new(File::open("resources/year2015/day18.txt")?).lines().collect()
 }

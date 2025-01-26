@@ -24,7 +24,7 @@ pub fn part2() -> usize {
 }
 
 fn read_lines() -> io::Result<Vec<i32>> {
-    BufReader::new(File::open("../../../resources/year2015/day17.txt")?)
+    BufReader::new(File::open("resources/year2015/day17.txt")?)
         .lines()
         .map(|line| line.and_then(|line| line.trim().parse::<i32>().map_err(|e| io::Error::new(io::ErrorKind::InvalidData, e))))
         .collect()

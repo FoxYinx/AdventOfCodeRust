@@ -33,5 +33,5 @@ fn calculate_sum_without_red(data: &Value) -> i64 {
 }
 
 fn read_file() -> io::Result<String> {
-    fs::read_to_string("../../../resources/year2015/day12.txt")
+    fs::read_to_string("resources/year2015/day12.txt")
 }

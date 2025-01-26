@@ -115,7 +115,7 @@ fn build_character(health_points: i16, damage: i16, armor_points: i16) -> Charac
 }
 
 fn get_boss_characteristics() -> io::Result<Character> {
-    let file = File::open("../../../resources/year2015/day21.txt")?;
+    let file = File::open("resources/year2015/day21.txt")?;
     let reader = BufReader::new(file);
     let mut health_points = 0;
     let mut damage = 0;

@@ -97,7 +97,7 @@ fn get_instructions() -> Vec<Instruction> {
 }
 
 fn read_file() -> io::Result<String> {
-    fs::read_to_string("../../../resources/year2015/day23.txt")
+    fs::read_to_string("resources/year2015/day23.txt")
 }
 
 enum Instruction {
