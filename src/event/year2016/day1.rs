@@ -1,16 +1,15 @@
 use std::collections::HashSet;
 use std::fs;
-use regex::Regex;
 
 pub fn part1() -> i16 {
-    let regex = Regex::new(r"(\w)(\d+)").expect("Unable to create regex!");
     let line = fs::read_to_string("ressources/year2016/day1.txt").expect("Unable to read file!");
     let mut current_pos = (0, 0);
     let mut current_direction = 0;
-    regex.captures_iter(&line).for_each(|cap| {
-        let direction = cap[1].to_string();
-        let length = cap[2].parse::<i16>().unwrap();
-        match direction.as_str() { 
+    let directions: Vec<&str> = line.split(',').map(str::trim).collect();
+    for cap in directions {
+        let (direction, length) = cap.split_at(1);
+        let length = length.parse::<i16>().unwrap();
+        match direction { 
             "R" => current_direction = (current_direction + 1) % 4,
             "L" => current_direction = (current_direction + 4 - 1) % 4,
             _ => eprintln!("Unknown value: {direction}")
@@ -22,24 +21,24 @@ pub fn part1() -> i16 {
             3 => current_pos.0 -= length,
             _ => eprintln!("Error, false direction: {current_direction}")
         }
-    });
+    }
 
     i16::abs(current_pos.0) + i16::abs(current_pos.1)
 }
 
 pub fn part2() -> i16 {
-    let regex = Regex::new(r"(\w)(\d+)").expect("Unable to create regex!");
     let line = fs::read_to_string("ressources/year2016/day1.txt").expect("Unable to read file!");
     let mut current_pos = (0, 0);
     let mut current_direction = 0;
     let mut set: HashSet<(i16, i16)> = HashSet::new();
     set.insert(current_pos);
     let mut flag = false;
-    regex.captures_iter(&line).for_each(|cap| {
+    let directions: Vec<&str> = line.split(',').map(str::trim).collect();
+    for cap in directions {
         if !flag {
-            let direction = cap[1].to_string();
-            let length = cap[2].parse::<i16>().unwrap();
-            match direction.as_str() {
+            let (direction, length) = cap.split_at(1);
+            let length = length.parse::<i16>().unwrap();
+            match direction {
                 "R" => current_direction = (current_direction + 1) % 4,
                 "L" => current_direction = (current_direction + 4 - 1) % 4,
                 _ => eprintln!("Unknown value: {direction}")
@@ -84,7 +83,7 @@ pub fn part2() -> i16 {
                 _ => eprintln!("Error, false direction: {current_direction}")
             }
         }
-    });
+    }
 
     i16::abs(current_pos.0) + i16::abs(current_pos.1)
 }
