@@ -11,7 +11,7 @@ pub fn part1() -> u32 {
         if c == '(' {
             if let Some(right_parenthesis_pointer) = input[i..].find(')') {
                 if let Some((left, right)) = input[(i + 1)..(i + right_parenthesis_pointer)].split_once('x') {
-                    let left = left.parse::<u32>().expect("Left is not a usize");
+                    let left = left.parse::<u32>().expect("Left is not a u32");
                     let right = right.parse::<u32>().expect("Right is not a u32");
 
                     decompressed_size += left * right;
