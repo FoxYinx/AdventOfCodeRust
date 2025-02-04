@@ -56,7 +56,8 @@ fn local_decompression(local :&str) -> (usize, u64) {
             let right = right.parse::<u32>().expect("Right is not a u32");
 
             return if local[(right_parenthesis_pointer + 1)..=(right_parenthesis_pointer + left as usize)].contains(')') {
-                let (mut to_skip, mut local_decompressed_size) = local_decompression(&local[(right_parenthesis_pointer + 1)..=(right_parenthesis_pointer + left as usize)]);
+                let mut to_skip: usize = 0;
+                let mut local_decompressed_size: u64 = 0;
                 while to_skip < left as usize {
                     let (skip, decompressed_size) = local_decompression(&local[(right_parenthesis_pointer + 1 + to_skip)..=(right_parenthesis_pointer + left as usize)]);
                     to_skip += skip;
