@@ -1,11 +1,12 @@
 use std::fs;
 
 pub fn part1() -> usize {
-    let mut bots = get_initial_bots();
+    let (mut bots, mut outputs) = get_initial_bots_and_outputs();
     bots.sort_by(|a, b| a.number.cmp(&b.number));
+    outputs.sort_by(|a, b| a.number.cmp(&b.number));
     add_inputs_bots(&mut bots);
     let mut flag = false;
-    let mut nb_bot = 0;
+    let mut output = 0;
 
     loop {
         for i in 0..bots.len() {
@@ -28,6 +29,8 @@ pub fn part1() -> usize {
                         } else {
                             right[0].values.push(value);
                         }
+                    } else {
+                        outputs[bots[i].lower_output_number as usize].values.push(value);
                     }
                     let value = bots[i].values[1];
                     if bots[i].is_higher_output_a_bot() {
@@ -38,6 +41,8 @@ pub fn part1() -> usize {
                         } else {
                             right[0].values.push(value);
                         }
+                    } else {
+                        outputs[bots[i].higher_output_number as usize].values.push(value);
                     }
                     bots[i].values.clear();
                 }
@@ -45,7 +50,7 @@ pub fn part1() -> usize {
             for (j, bot) in bots.iter().enumerate() {
                 if bot.values.contains(&17) && bot.values.contains(&61) {
                     flag = true;
-                    nb_bot = j;
+                    output = j;
                     break;
                 }
             }
@@ -56,11 +61,74 @@ pub fn part1() -> usize {
         }
     }
 
-    nb_bot
+    output
 }
 
-fn get_initial_bots() -> Vec<Bot> {
+pub fn part2() -> u32 {
+    let (mut bots, mut outputs) = get_initial_bots_and_outputs();
+    bots.sort_by(|a, b| a.number.cmp(&b.number));
+    outputs.sort_by(|a, b| a.number.cmp(&b.number));
+    add_inputs_bots(&mut bots);
+    let mut flag = false;
+    let mut output = 0;
+
+    loop {
+        for i in 0..bots.len() {
+            if bots[i].values.len() == 2 {
+                bots[i].values.sort_unstable();
+                let mut valid = true;
+                if bots[i].is_lower_output_a_bot() && bots[bots[i].lower_output_number as usize].values.len() >= 2 {
+                    valid = false;
+                }
+                if bots[i].is_higher_output_a_bot() && bots[bots[i].higher_output_number as usize].values.len() >= 2 {
+                    valid = false;
+                }
+                if valid {
+                    let value = bots[i].values[0];
+                    if bots[i].is_lower_output_a_bot() {
+                        let lower_output_number = bots[i].lower_output_number as usize;
+                        let (left, right) = bots.split_at_mut(lower_output_number);
+                        if lower_output_number < left.len() {
+                            left[lower_output_number].values.push(value);
+                        } else {
+                            right[0].values.push(value);
+                        }
+                    } else {
+                        outputs[bots[i].lower_output_number as usize].values.push(value);
+                    }
+                    let value = bots[i].values[1];
+                    if bots[i].is_higher_output_a_bot() {
+                        let higher_output_number = bots[i].higher_output_number as usize;
+                        let (left, right) = bots.split_at_mut(higher_output_number);
+                        if higher_output_number < left.len() {
+                            left[higher_output_number].values.push(value);
+                        } else {
+                            right[0].values.push(value);
+                        }
+                    } else {
+                        outputs[bots[i].higher_output_number as usize].values.push(value);
+                    }
+                    bots[i].values.clear();
+                }
+            }
+            if !outputs[0].values.is_empty() && !outputs[1].values.is_empty() &!outputs[2].values.is_empty() {
+                flag = true;
+                output = outputs[0].values[0] * outputs[1].values[0] * outputs[2].values[0];
+                break;
+            }
+        }
+
+        if flag {
+            break;
+        }
+    }
+
+    output
+}
+
+fn get_initial_bots_and_outputs() -> (Vec<Bot>, Vec<Output>) {
     let mut bots: Vec<Bot> = Vec::new();
+    let mut outputs: Vec<Output> = Vec::new();
     for line in fs::read_to_string("resources/year2016/day10.txt").expect("Unable to read file!").lines() {
         if line.contains("value") {
             continue
@@ -70,11 +138,17 @@ fn get_initial_bots() -> Vec<Bot> {
             parts[1].parse::<u32>().unwrap(),
             parts[6].parse::<u32>().unwrap(),
             parts[11].parse::<u32>().unwrap(),
-            if parts[5] == "bot" { State::Bot } else { State::Output },
-            if parts[10] == "bot" { State::Bot } else { State::Output },
+            if parts[5] == "bot" { State::Bot } else {
+                outputs.push(Output::new(parts[6].parse::<u32>().unwrap()));
+                State::Output
+            },
+            if parts[10] == "bot" { State::Bot } else {
+                outputs.push(Output::new(parts[11].parse::<u32>().unwrap()));
+                State::Output 
+            },
         ));
     }
-    bots
+    (bots, outputs)
 }
 
 fn add_inputs_bots(bots: &mut [Bot]) {
